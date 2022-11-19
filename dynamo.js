@@ -9,5 +9,29 @@ AWS.config.update({
 const dynamoClient = new AWS.DynamoDB.DocumentClient({endpoint: "http://localhost:8000"})
 
 const params = {
-    TableName: "BCSquirrels",
+    AttributeDefinitions: [
+       {
+      AttributeName: "squirrel_id", 
+      AttributeType: "S"
+     }
+    ], 
+    KeySchema: [
+       {
+      AttributeName: "squirrel_id", 
+      KeyType: "HASH"
+     }
+    ], 
+    ProvisionedThroughput: {
+     ReadCapacityUnits: 5, 
+     WriteCapacityUnits: 5
+    }, 
+    TableName: "BCSquirrels"
+   } 
+
+function makeTable(){
+    dynamoClient.createTable(params, (err,data) =>{
+    if(err) console.log(err)
+    else console.log(data)
+})
 }
+
