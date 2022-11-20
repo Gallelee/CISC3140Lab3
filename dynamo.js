@@ -37,15 +37,29 @@ function makeTable(){
 })
 }
 
-function getAllSquirrels(){
-    dynamoClient.scan(params.TableName, (err,data)=>{
-        if(err) console.log(err)
-        else console.log(data)
-    }
-    )
+async function getAllSquirrels(){
+     const data = await dynamoClient.scan(params).promise()
+     console.log(data)
+     return data
 }
-makeTable()
+        
 
-dynamoService.listTables()
+async function getSquirrelById(id){
+    const squirrelParams = {
+        TableName: "BCSquirrels",
+        Key: {
+            squirrel_id: `${id}`
+        }
+    }
+    const squirrel = await dynamoClient.get(squirrelParams).promise()
+    console.log(squirrel)
+    return squirrel
+}
+
+console.log(getSquirrelById(123))
+
+
+exports.getAllSquirrels = getAllSquirrels
+exports.getSquirrelById = getSquirrelById
 
 
