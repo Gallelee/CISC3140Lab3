@@ -1,12 +1,14 @@
 //this file contains some functions we can use in our express app for dealing with dynamodb
 const AWS = require("aws-sdk")
-AWS.config.update({
-    region: "us-east-1",
-    accessKeyId: "fakeKey",
-    secretAccessKey: "fakeKey"
-})
+AWS.config.update(
+{
+    region: "local",
+    endpoint: new AWS.Endpoint("http://[::1]:8000")
+}
+)
 //the endpoint: An Endpoint object representing the endpoint URL for service requests.
-const dynamoClient = new AWS.DynamoDB.DocumentClient({endpoint: "http://localhost:8000"})
+const dynamoService = new AWS.DynamoDB()
+const dynamoClient = new AWS.DynamoDB.DocumentClient()
 
 const params = {
     AttributeDefinitions: [
@@ -29,9 +31,9 @@ const params = {
    } 
 
 function makeTable(){
-    dynamoClient.createTable(params, (err,data) =>{
+    dynamoService.createTable(params, (err,data) =>{
     if(err) console.log(err)
-    else console.log(data)
+    else console.log("created table")
 })
 }
 
@@ -42,7 +44,8 @@ function getAllSquirrels(){
     }
     )
 }
-
 makeTable()
+
+dynamoService.listTables()
 
 
