@@ -56,8 +56,7 @@ async function getSquirrelById(id){
     return squirrel
 }
 
-console.log(getSquirrelById(123))
-
+makeTable()
 
 exports.getAllSquirrels = getAllSquirrels
 exports.getSquirrelById = getSquirrelById
