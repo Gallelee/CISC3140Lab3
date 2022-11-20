@@ -35,3 +35,14 @@ function makeTable(){
 })
 }
 
+function getAllSquirrels(){
+    dynamoClient.scan(params.TableName, (err,data)=>{
+        if(err) console.log(err)
+        else console.log(data)
+    }
+    )
+}
+
+makeTable()
+
+

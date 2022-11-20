@@ -1,1 +1,2 @@
 # CISC3140Lab3
+The first step to using the app is the run the build.sh file in the terminal. This will install a local instance of DynamoDB if you don't already have one. This will also run the node application that will create a new table for you.
