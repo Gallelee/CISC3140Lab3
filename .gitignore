@@ -1,2 +1,9 @@
 node_modules
 *.jar
+*.zip
+*.dll
+*.so
+*.dylib
+README.txt
+THIRD-PARTY-LICENSES.txt
+LICENSE.txt
