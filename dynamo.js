@@ -56,10 +56,16 @@ async function getSquirrelById(id){
     return squirrel
 }
 
+async function putSquirrel(squirrel){
+    const newSquirrel = await dynamoClient.put(squirrel).promise()
+    console.log(newSquirrel)
+    return newSquirrel
+}
 
 makeTable()
 
 exports.getAllSquirrels = getAllSquirrels
 exports.getSquirrelById = getSquirrelById
+exports.putSquirrel = putSquirrel
 
 
