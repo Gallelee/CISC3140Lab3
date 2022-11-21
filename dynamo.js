@@ -65,6 +65,8 @@ exports.getAllSquirrels = getAllSquirrels
 exports.getSquirrelById = getSquirrelById
 
 function addSquirrelData(){
+
+    //Adds first 24, test this first 
     let part = SquirrelData.slice(0, 24);
     let reqParams = {
         RequestItems: [
@@ -81,6 +83,26 @@ function addSquirrelData(){
         }
     });
 
+    //Add all squirrels 
+    /*
+    for(let i = 0; i < 100; i+=25){
+        let part = SquirrelData.slice(i,i+24);
+        let reqParams = {
+            RequestItems: [
+                part
+            ]
+        };
+
+        dynamoService.batchWriteItem(reqParams, function(err,data){
+            if(err){
+                console.log("Error", err);
+            }
+            else{
+                console.log(data);
+            }
+        });
+    }
+    */
 }
 
 
