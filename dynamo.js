@@ -32,11 +32,12 @@ const params = {
     TableName: "BCSquirrels",
    } 
 
- function makeTable(){
+function makeTable(){
     
-    dynamoService.createTable(params, (err,data) =>{
-    if(err)console.log(err)
-    else console.log(data)
+   dynamoService.createTable(params, (err,data) =>{
+    if(err)console.log("table already exists")
+    else console.log(`created table${params.TableName}`)
+    addSquirrelData()
 })
 }
 
@@ -74,7 +75,7 @@ exports.getSquirrelById = getSquirrelById
 exports.putSquirrel = putSquirrel
 
 
-function addSquirrelData(){
+ function addSquirrelData(){
 
     //Adds first 24, test this first 
     let part = squirrels.splice(0,24);
@@ -83,7 +84,7 @@ function addSquirrelData(){
             "BCSquirrels" : part
         }
     };
-    dynamoService.batchWriteItem(reqParams,function(err,data){
+     dynamoService.batchWriteItem(reqParams,function(err,data){
         if(err){
             console.log("Error", err);
         }
@@ -114,12 +115,17 @@ function addSquirrelData(){
 }
 
 async function fillTable(){
-    const itemCount = await dynamoClient.scan(params).promise()
-    addSquirrelData()
-    console.log(itemCount.ScannedCount)
+   
+    await addSquirrelData()
+    
     
 }
 
-fillTable()
-getAllSquirrels()
+
+makeTable()
+
+
+
+
+
 
