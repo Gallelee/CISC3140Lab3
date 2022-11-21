@@ -31,10 +31,13 @@ const params = {
    } 
 
 function makeTable(){
+    try{
     dynamoService.createTable(params, (err,data) =>{
-    if(err) console.log(err)
-    else console.log("created table")
-})
+    if(data) console.log("created table")
+})}
+    catch(err){
+    console.log("The table already exists")
+}
 }
 
 async function getAllSquirrels(){
@@ -62,7 +65,17 @@ async function putSquirrel(squirrel){
     return newSquirrel
 }
 
+async function fillTable(){
+    const itemCount = await dynamoClient.scan(params).promise()
+    console.log(itemCount.ScannedCount)
+    if(itemCount==0){
+        //fill the table
+        dynamoService.batchWriteItem()
+    }
+}
+
 makeTable()
+fillTable()
 
 exports.getAllSquirrels = getAllSquirrels
 exports.getSquirrelById = getSquirrelById
