@@ -1,5 +1,7 @@
 //this file contains some functions we can use in our express app for dealing with dynamodb
 const AWS = require("aws-sdk")
+const squirrels = require('./sampleSquirrelData.js').data
+
 AWS.config.update(
 {
     region: "local",
@@ -27,17 +29,15 @@ const params = {
      ReadCapacityUnits: 5, 
      WriteCapacityUnits: 5
     }, 
-    TableName: "BCSquirrels"
+    TableName: "BCSquirrels",
    } 
 
-function makeTable(){
-    try{
+ function makeTable(){
+    
     dynamoService.createTable(params, (err,data) =>{
-    if(data) console.log("created table")
-})}
-    catch(err){
-    console.log("The table already exists")
-}
+    if(err)console.log(err)
+    else console.log(data)
+})
 }
 
 async function getAllSquirrels(){
@@ -65,20 +65,61 @@ async function putSquirrel(squirrel){
     return newSquirrel
 }
 
-async function fillTable(){
-    const itemCount = await dynamoClient.scan(params).promise()
-    console.log(itemCount.ScannedCount)
-    if(itemCount==0){
-        //fill the table
-        dynamoService.batchWriteItem()
-    }
-}
 
-makeTable()
-fillTable()
+
+
 
 exports.getAllSquirrels = getAllSquirrels
 exports.getSquirrelById = getSquirrelById
 exports.putSquirrel = putSquirrel
 
+
+function addSquirrelData(){
+
+    //Adds first 24, test this first 
+    let part = squirrels.splice(0,24);
+    let reqParams = {
+        RequestItems: {
+            "BCSquirrels" : part
+        }
+    };
+    dynamoService.batchWriteItem(reqParams,function(err,data){
+        if(err){
+            console.log("Error", err);
+        }
+        else{
+            console.log(data);
+        }
+    });
+
+    //Add all squirrels 
+    /*
+    for(let i = 0; i < 100; i+=25){
+        let part = SquirrelData.slice(i,i+24);
+        let reqParams = {
+            RequestItems: [
+                part
+            ]
+        };
+        dynamoService.batchWriteItem(reqParams, function(err,data){
+            if(err){
+                console.log("Error", err);
+            }
+            else{
+                console.log(data);
+            }
+        });
+    }
+    */
+}
+
+async function fillTable(){
+    const itemCount = await dynamoClient.scan(params).promise()
+    addSquirrelData()
+    console.log(itemCount.ScannedCount)
+    
+}
+
+fillTable()
+getAllSquirrels()
 
