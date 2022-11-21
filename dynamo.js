@@ -1,5 +1,7 @@
 //this file contains some functions we can use in our express app for dealing with dynamodb
 const AWS = require("aws-sdk")
+const squirrels = require('./sampleSquirrelData.js').data
+
 AWS.config.update(
 {
     region: "local",
@@ -27,13 +29,15 @@ const params = {
      ReadCapacityUnits: 5, 
      WriteCapacityUnits: 5
     }, 
-    TableName: "BCSquirrels"
+    TableName: "BCSquirrels",
    } 
 
 function makeTable(){
-    dynamoService.createTable(params, (err,data) =>{
-    if(err) console.log(err)
-    else console.log("created table")
+    
+   dynamoService.createTable(params, (err,data) =>{
+    if(err)console.log("table already exists")
+    else console.log(`created table${params.TableName}`)
+    addSquirrelData()
 })
 }
 
@@ -56,9 +60,67 @@ async function getSquirrelById(id){
     return squirrel
 }
 
-makeTable()
+async function putSquirrel(squirrel){
+    const newSquirrel = await dynamoClient.put(squirrel).promise()
+    console.log(newSquirrel)
+    return newSquirrel
+}
+
+
+
+
+
+
+
+
+ function addSquirrelData(){
+
+    //Adds first 24, test this first 
+    let part = squirrels.splice(0,24);
+    let reqParams = {
+        RequestItems: {
+            "BCSquirrels" : part
+        }
+    };
+     dynamoService.batchWriteItem(reqParams,function(err,data){
+        if(err){
+            console.log("Error", err);
+        }
+        else{
+            console.log(data);
+        }
+    });
+
+    //Add all squirrels 
+    /*
+    for(let i = 0; i < 100; i+=25){
+        let part = SquirrelData.slice(i,i+24);
+        let reqParams = {
+            RequestItems: [
+                part
+            ]
+        };
+        dynamoService.batchWriteItem(reqParams, function(err,data){
+            if(err){
+                console.log("Error", err);
+            }
+            else{
+                console.log(data);
+            }
+        });
+    }
+    */
+}
 
 exports.getAllSquirrels = getAllSquirrels
 exports.getSquirrelById = getSquirrelById
+exports.putSquirrel = putSquirrel
+exports.makeTable = makeTable
+
+
+
+
+
+
 
 

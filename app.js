@@ -1,7 +1,10 @@
 const express  = require("express")
+const  putSquirrel  = require("./dynamo").putSquirrel
 const getAllSquirrels = require("./dynamo").getAllSquirrels
 const getSquirrelById = require("./dynamo").getSquirrelById
 const app = express()
+
+app.use(express.json())
 
 const port = process.env.port || 3000
 
@@ -14,9 +17,16 @@ app.get("/squirrels", async (req,res) =>{
 })
 
 app.get("/squirrels/:id", async (req,res) => {
-    const data = await getSquirrelById(parseInt(req.params.id))
-    console.log(parseInt(req.params.id))
+    const data = await getSquirrelById(req.params.id)
+    console.log(req.params.id)
     res.json(data)
+    res.end()
+})
+
+app.post("/squirrels", async (req,res) => {
+    const squirrel = req.body
+    const newSquirrel = await putSquirrel(squirrel)
+    res.json(newSquirrel)
     res.end()
 })
 
