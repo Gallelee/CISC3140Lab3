@@ -20,7 +20,7 @@ else
 	unzip dynamodb_local_latest.zip	
 fi
 
-echo 'running the aws configure tool. When running locally, enter "fakekey" as both credentials and "us-east-1" for region. Refer to the readme for more info'
+echo 'running the aws configure tool. When running locally, enter "fakekey" as both credentials and "local" for region. Refer to the readme for more info'
 
 aws configure
 
