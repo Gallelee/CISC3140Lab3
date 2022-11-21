@@ -56,6 +56,7 @@ async function getSquirrelById(id){
     return squirrel
 }
 
+
 makeTable()
 
 exports.getAllSquirrels = getAllSquirrels

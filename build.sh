@@ -25,6 +25,8 @@ echo 'running the aws configure tool. When running locally, enter "fakekey" as b
 aws configure
 
 echo "starting up the local instance of DynamoDB..."
-java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar 
+
+
 
 

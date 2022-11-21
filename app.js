@@ -20,6 +20,10 @@ app.get("/squirrels/:id", async (req,res) => {
     res.end()
 })
 
+app.post("/squirrels", async (req,res) => {
+    
+})
+
 app.listen(port, ()=>{
     console.log("listening on " + port)
 })
