@@ -70,9 +70,7 @@ async function putSquirrel(squirrel){
 
 
 
-exports.getAllSquirrels = getAllSquirrels
-exports.getSquirrelById = getSquirrelById
-exports.putSquirrel = putSquirrel
+
 
 
  function addSquirrelData(){
@@ -114,15 +112,12 @@ exports.putSquirrel = putSquirrel
     */
 }
 
-async function fillTable(){
-   
-    await addSquirrelData()
-    
-    
-}
+exports.getAllSquirrels = getAllSquirrels
+exports.getSquirrelById = getSquirrelById
+exports.putSquirrel = putSquirrel
+exports.makeTable = makeTable
 
 
-makeTable()
 
 
 

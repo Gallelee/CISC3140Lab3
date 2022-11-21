@@ -1,5 +1,7 @@
 #! /bin/bash
 
+npm install
+
 if ! command -v aws &> /dev/null
 then
     echo "aws could not be found, running the install"

@@ -17,8 +17,8 @@ app.get("/squirrels", async (req,res) =>{
 })
 
 app.get("/squirrels/:id", async (req,res) => {
-    const data = await getSquirrelById(parseInt(req.params.id))
-    console.log(parseInt(req.params.id))
+    const data = await getSquirrelById(req.params.id)
+    console.log(req.params.id)
     res.json(data)
     res.end()
 })
