@@ -1,5 +1,7 @@
 //this file contains some functions we can use in our express app for dealing with dynamodb
 const AWS = require("aws-sdk")
+const squirrels = require('./sampleSquirrelData.js')
+
 AWS.config.update(
 {
     region: "local",
@@ -27,8 +29,9 @@ const params = {
      ReadCapacityUnits: 5, 
      WriteCapacityUnits: 5
     }, 
-    TableName: "BCSquirrels"
-   } 
+    TableName: "BCSquirrels",
+    SquirrelData: squirrels,
+} 
 
 function makeTable(){
     dynamoService.createTable(params, (err,data) =>{
@@ -47,5 +50,24 @@ function getAllSquirrels(){
 makeTable()
 
 dynamoService.listTables()
+
+function addSquirrelData(){
+    let part = SquirrelData.slice(0, 24);
+    let reqParams = {
+        RequestItems: [
+            part
+        ]
+    };
+
+    dynamoService.batchWriteItem(reqParams,function(err,data){
+        if(err){
+            console.log("Error", err);
+        }
+        else{
+            console.log(data);
+        }
+    });
+
+}
 
 
