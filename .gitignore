@@ -7,3 +7,4 @@ node_modules
 README.txt
 THIRD-PARTY-LICENSES.txt
 LICENSE.txt
+*.db
