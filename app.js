@@ -18,16 +18,23 @@ app.get("/squirrels", async (req,res) =>{
 
 app.get("/squirrels/:id", async (req,res) => {
     const data = await getSquirrelById(req.params.id)
-    console.log(req.params.id)
+    //console.log(req.params.id)
     res.json(data)
     res.end()
 })
 
 app.post("/squirrels", async (req,res) => {
-    const squirrel = req.body
-    const newSquirrel = await putSquirrel(squirrel)
-    res.json(newSquirrel)
-    res.end()
+    try{
+        const squirrel = req.body
+        const newSquirrel = await putSquirrel(squirrel)
+        res.json(newSquirrel)
+        res.end()
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({err: "something broke, check request"})
+    }
+   
 })
 
 app.listen(port, ()=>{
