@@ -31,8 +31,11 @@ The Api is now ready to use.
 
 ### POST
 "/squirrels" - this serves as the endpoint to put a new squirrel entry.
-    (note) The request body has a specific syntax that must be followed.
-    ex) {
+
+_Note:_ The request body has a specific syntax that must be followed.
+
+    ``` json
+    {
     "Item": {
         "squirrel_id":"0200",
         "color": "black"
@@ -40,9 +43,30 @@ The Api is now ready to use.
     "TableName" : "BCSquirrels" 
     
     }
-    - squirrel_id is the only required attribute and is a string. Other attributes can be added as needed.
+    ```
+
+Squirrel_id is the only required attribute and is a string. Other attributes can be added as needed.
 
 ### UPDATE
+"/squirrels" - this is the enpoint to update a squirrel. 
+
+_Note:_ The request body must follow this syntax:
+ 
+    ```json
+    {
+        "Key": {
+            "squirrel_id": "0200"
+        },
+        "TableName": "BCSquirrels",
+        "AttributeUpdates": {
+            "age":{
+                "Action": "PUT",
+                "Value": "juvenile"
+            }
+        }
+    }
+    ```
+
 
 ### DELETE
  

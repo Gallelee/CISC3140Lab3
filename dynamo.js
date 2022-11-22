@@ -1,5 +1,7 @@
 //this file contains some functions we can use in our express app for dealing with dynamodb
+const { DynamoDB } = require("aws-sdk")
 const AWS = require("aws-sdk")
+
 const squirrels = require('./sampleSquirrelData.js').data
 
 AWS.config.update(
@@ -66,9 +68,11 @@ async function putSquirrel(squirrel){
     return newSquirrel
 }
 
-
-
-
+async function updateSquirrel(squirrel){
+    const updatedSquirrel = await dynamoClient.update(squirrel).promise()
+    console.log(updatedSquirrel)
+    return updatedSquirrel
+}
 
 
 
@@ -116,7 +120,7 @@ exports.getAllSquirrels = getAllSquirrels
 exports.getSquirrelById = getSquirrelById
 exports.putSquirrel = putSquirrel
 exports.makeTable = makeTable
-
+exports.updateSquirrel = updateSquirrel
 
 
 

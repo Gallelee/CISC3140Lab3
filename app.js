@@ -2,6 +2,7 @@ const express  = require("express")
 const  putSquirrel  = require("./dynamo").putSquirrel
 const getAllSquirrels = require("./dynamo").getAllSquirrels
 const getSquirrelById = require("./dynamo").getSquirrelById
+const updateSquirrel = require("./dynamo").updateSquirrel
 const app = express()
 
 app.use(express.json())
@@ -35,6 +36,20 @@ app.post("/squirrels", async (req,res) => {
         res.status(500).json({err: "something broke, check request"})
     }
    
+})
+
+app.put("/squirrels", async (req,res) => {
+    try{
+        const squirrel = req.body
+        const updatedSquirrel = await updateSquirrel(squirrel)
+        res.json(updatedSquirrel)
+        res.end()
+
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({err: "not valid, check request"})
+    }
 })
 
 app.listen(port, ()=>{
