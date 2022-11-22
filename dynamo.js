@@ -74,7 +74,11 @@ async function updateSquirrel(squirrel){
     return updatedSquirrel
 }
 
-
+async function deleteSquirrel(squirrel){
+    const deleted = await dynamoClient.delete(squirrel).promise()
+    console.log(deleted)
+    return deleted
+}
 
 
  function addSquirrelData(){
@@ -121,6 +125,7 @@ exports.getSquirrelById = getSquirrelById
 exports.putSquirrel = putSquirrel
 exports.makeTable = makeTable
 exports.updateSquirrel = updateSquirrel
+exports.deleteSquirrel = deleteSquirrel
 
 
 

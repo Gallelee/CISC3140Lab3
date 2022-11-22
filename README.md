@@ -67,6 +67,16 @@ _Note:_ The request body must follow this syntax:
     }
     ```
 
-
 ### DELETE
+"/squirrels" - this is the endpoint to delete a squirrel.
+_Note:_ The request body must follow this syntax:
+
+    ```json
+    {
+        "TableName": "BCSquirrels",
+        "Key": {
+            "squirrel_id": "0200"
+        }
+    }
+    ```
  
