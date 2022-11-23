@@ -9,7 +9,7 @@ The following are the steps to run the app:
 
 1. Run the ``` build.sh ``` file. </br> 
 - This will launch a download for DynamoDB local (if it isn't already present). </br>
-- This will also laund ```aws configure```,  which is used to set up preferences and credentials.</br>
+- This will also launch ```aws configure```,  which is used to set up preferences and credentials.</br>
 The credentials can be anything you want when dealing with the local instance of DynamoDB. </br>
 - **The most important setting here is the region. This MUST be set to "local"**
 - The script's final step runs the command ``` java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar ``` to start the database. The database will listen for requests and responses. </br>
