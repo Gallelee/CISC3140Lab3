@@ -12,6 +12,12 @@ const port = process.env.port || 3000
 
 //all of the express routes will go in here
 
+app.get("/", (req,res)=>{
+    res.status(200)
+    res.write("Welcome To The BCSquirrels API")
+    res.end()
+})
+
 app.get("/squirrels", async (req,res) =>{
     const data  = await getAllSquirrels()
     res.json(data.Items)
