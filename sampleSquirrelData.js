@@ -1290,6 +1290,7 @@ const data=[
     }
   }},
   {PutRequest: {
+    Item : {
       "squirrel_id": {
         "S": "0047"
       },
@@ -1314,6 +1315,7 @@ const data=[
       "gender": {
         "S": "Male"
       }
+    }
     
   }},
   {PutRequest: {

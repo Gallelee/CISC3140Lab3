@@ -84,29 +84,29 @@ async function deleteSquirrel(squirrel){
  function addSquirrelData(){
 
     //Adds first 24, test this first 
-    let part = squirrels.splice(0,24);
-    let reqParams = {
-        RequestItems: {
-            "BCSquirrels" : part
-        }
-    };
-     dynamoService.batchWriteItem(reqParams,function(err,data){
-        if(err){
-            console.log("Error", err);
-        }
-        else{
-            console.log(data);
-        }
-    });
+    // let part = squirrels.splice(0,24);
+    // let reqParams = {
+    //     RequestItems: {
+    //         "BCSquirrels" : part
+    //     }
+    // };
+    //  dynamoService.batchWriteItem(reqParams,function(err,data){
+    //     if(err){
+    //         console.log("Error", err);
+    //     }
+    //     else{
+    //         console.log(data);
+    //     }
+    // });
 
     //Add all squirrels 
-    /*
-    for(let i = 0; i < 100; i+=25){
-        let part = SquirrelData.slice(i,i+24);
+    
+    for(let i = 0; i < 101; i+=24){
+        let part = squirrels.slice(i,i+24);
         let reqParams = {
-            RequestItems: [
-                part
-            ]
+            RequestItems: {
+                "BCSquirrels": part
+            }
         };
         dynamoService.batchWriteItem(reqParams, function(err,data){
             if(err){
@@ -117,7 +117,7 @@ async function deleteSquirrel(squirrel){
             }
         });
     }
-    */
+    
 }
 
 exports.getAllSquirrels = getAllSquirrels
